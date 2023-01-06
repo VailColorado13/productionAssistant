@@ -33,7 +33,7 @@ const handleDrop = (e) => {
   // console.log(fileArray)
   nameArray = []
 
-  fileArray.forEach((file) => nameArray.push(file.name.replace(/\s\s+/g, ' ') 
+  fileArray.forEach((file) => nameArray.push(file.name.replace(/\s\s+/g, ' ')
   ))
 
   nameArray.forEach((element, index) => {
@@ -71,8 +71,13 @@ const handleDrop = (e) => {
  
 
   for (let i = 0; i < nameArray.length; i++){
-      splitTitles.push(nameArray[i].split(" ")) 
+     const regex = /^[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?\s]+$/
+      splitTitles.push(nameArray[i].split(" ").filter(word => !regex.test(word))) 
      } 
+
+ 
+
+     console.log('splitTitles', splitTitles)
 
   //2.1 now we'll go ahead and remove anything in parentheses from the split titles, we'll then store these values as lengthArr, since they are probably the lengths of the spots: 
   let lengthArr = []
@@ -90,7 +95,7 @@ const handleDrop = (e) => {
   //2.2 remove any length values in parenthesis from the titles and store as 'clean split array'
 
   let cleanSplitTitles = splitTitles.map(title => title.filter(length => !lengthArr.includes(length)))
-
+  
   //::::::::::::::::\\  //::::::::::::::::\\  //::::::::::::::::\\
   ///STEP THREE: Separate titles by Single versions vs Open & Full versions
   //::::::::::::::::\\  //::::::::::::::::\\  //::::::::::::::::\\
@@ -125,6 +130,8 @@ const handleDrop = (e) => {
          }
        }
      }
+
+     
   
    //4.2 Create singleTitlesNoISCIs array. These are all the titles that have only a closed version.
 
@@ -133,7 +140,10 @@ const handleDrop = (e) => {
    //4.3 Create openClosedISCIs array, which contains all ISCIs from scripts with two ISCIs:
   let openClosedISCIs = []
 
+  console.log('openClosedISCIs' , openClosedISCIs)
+
   for (let i = 0; i < openClosedTitles.length; i++) {
+    let temp = []
       for (let j = 0; j < openClosedTitles[i].length; j++) {
         if (openClosedTitles[i][j].match(ISCIRegex)) {
           openClosedISCIs.push([openClosedTitles[i][j]])
@@ -150,6 +160,7 @@ const handleDrop = (e) => {
     openClosedTitlesNoISCIsDouble.push(openClosedTitlesNoISCIs[i])
     openClosedTitlesNoISCIsDouble.push(openClosedTitlesNoISCIs[i])
     }
+
 
   //::::::::::::::::\\  //::::::::::::::::\\  //::::::::::::::::\\
   //STEP 5.0: PUSH DATA INTO THE DOM
@@ -185,8 +196,7 @@ const handleDrop = (e) => {
   }
 
 
-console.log(ISCIsAll)
-console.log(TitlesAllFlat)
+
 console.log('dropped')
 
 
