@@ -15,7 +15,7 @@ app.listen(process.env.PORT || PORT, ()=>{
 
 //serve up the index.html file from the server: 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index2.html')
+  res.sendFile(__dirname + '/index.html')
 })
 
 
